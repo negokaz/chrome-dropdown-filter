@@ -1,0 +1,15 @@
+{
+  "name": "chrome-selectize",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1",
+    "webextension-toolbox": "^3.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "selectize": "^0.12.6"
+  }
+}

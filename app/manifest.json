@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "Selectize",
+    "description": "セレクトボックスを検索できるようにします",
+    "version": "0.1.0",
+    "permissions": [
+      "http://*/*",
+      "https://*/*",
+      "storage",
+      "tabs"
+    ],
+    "background": {
+      "scripts": [
+        "scripts/background.js"
+      ]
+    },
+    "browser_action": {
+    }
+  }

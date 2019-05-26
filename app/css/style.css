@@ -1,0 +1,41 @@
+.selectize-control {
+    display: inline-block;
+    line-height: 0;
+}
+
+.selectize-input {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.selectize-input > * {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle !important;
+    margin-left: 0.5rem;
+}
+
+.select-one {
+    position: absolute;
+    top: 25%;
+}
+
+.selectize-dropdown * {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.selectize-dropdown {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.selectize-control.single .selectize-input::after {
+    top: 60% !important;
+    right: 2px !important;
+}
