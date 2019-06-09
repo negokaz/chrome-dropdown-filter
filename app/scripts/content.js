@@ -16,9 +16,34 @@ jquery(() => {
         $select.selectize({
             create: false,
             dropdownParent: 'body',
+            allowEmptyOption: true,
             onDropdownOpen: () => {
-                $select[0].selectize.clear();
+                const select = $select[0];
+                const selectize = select.selectize;
+                if (select.dataset.selectedValue) {
+                    delete select.dataset.selectedValue;
+                }
+                select.dataset.initialValue = selectize.getValue();
+                selectize.clear(/*silent*/true);
             },
+            onBlur: () => {
+                const select = $select[0];
+                const selectize = select.selectize;
+                select.dataset.selectedValue = selectize.getValue();
+                selectize.setValue(select.dataset.initialValue, /*silent*/true)
+                delete select.dataset.initialValue;
+            },
+            onChange: () => {
+                const select = $select[0];
+                const selectize = select.selectize;
+                if (select.dataset.selectedValue !== '') {
+                    selectize.setValue(select.dataset.selectedValue, /*silent*/true)
+                    delete select.dataset.selectedValue;
+                } else if (select.dataset.selectedValue === '') {
+                    selectize.clear(/*silent*/true);
+                    delete select.dataset.selectedValue;
+                }
+            }
         });
         const $control = $select.next('.selectize-control');
         $control.css('vertical-align', verticalAlign);
@@ -31,6 +56,10 @@ jquery(() => {
         $input.css('vertical-align', verticalAlign);
         const $textInput = $input.find('input');
         $textInput.css('font-size', fontSize);
+        // avoid layout shaking: opacity: 0; position: absolute; left: -10000px;
+        $textInput.css('opacity', 0);
+        $textInput.css('position', 'absolute');
+        $textInput.css('left', '-10000px');
         jquery('.selectize-dropdown:last')
             .css('font-size', fontSize);
     });

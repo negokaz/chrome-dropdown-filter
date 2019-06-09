@@ -47,7 +47,7 @@ chrome.tabs.onActivated.addListener(e => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {    
-    if (changeInfo.status === 'loading' && tab.url) {
+    if (changeInfo.status === 'complete' && tab.url) {
         applyByPersistedState(tab);
     }
 });
