@@ -15,8 +15,12 @@ function setBadge(isActive, tabId) {
     }
 }
 
+function getTabOrigin(tab) {
+    return new URL(tab.url).origin + "/";
+}
+
 function applyByPersistedState(tab) {
-    const origin = new URL(tab.url).origin;
+    const origin = getTabOrigin(tab);
     chrome.storage.local.get(origin, data => {
         if (data[origin] && data[origin].enable) {
             executeContentScript(tab.id);
@@ -27,16 +31,22 @@ function applyByPersistedState(tab) {
     });
 }
 
+
 chrome.browserAction.onClicked.addListener(tab => {
-    const origin = new URL(tab.url).origin;
-    chrome.storage.local.get(origin, data => {
-        const newData = data[origin] ? data[origin] : { enable: false };
-        newData[origin] = {
-            enable: !newData.enable
-        };
-        chrome.storage.local.set(newData, () => {
-            applyByPersistedState(tab);
-        });
+    const origin = getTabOrigin(tab);
+    chrome.permissions.request({
+        permissions: ['tabs'],
+        origins: [origin]
+    }, granted => {
+        if (granted) {
+            chrome.storage.local.get(origin, data => {
+                const newData   = data[origin] ? data[origin] : { enable: false };
+                newData[origin] = { enable: !newData.enable }; // toggle
+                chrome.storage.local.set(newData, () => {
+                    applyByPersistedState(tab);
+                });
+            });
+        }
     });
 });
 
