@@ -19,8 +19,7 @@ function getTabOrigin(tab) {
     return new URL(tab.url).origin + "/";
 }
 
-function applyByPersistedState(tab) {
-    const origin = getTabOrigin(tab);
+function applyByPersistedState(tab, origin) {
     chrome.storage.local.get(origin, data => {
         if (data[origin] && data[origin].enable) {
             executeContentScript(tab.id);
@@ -35,7 +34,6 @@ function applyByPersistedState(tab) {
 chrome.browserAction.onClicked.addListener(tab => {
     const origin = getTabOrigin(tab);
     chrome.permissions.request({
-        permissions: ['tabs'],
         origins: [origin]
     }, granted => {
         if (granted) {
@@ -43,7 +41,7 @@ chrome.browserAction.onClicked.addListener(tab => {
                 const newData   = data[origin] ? data[origin] : { enable: false };
                 newData[origin] = { enable: !newData.enable }; // toggle
                 chrome.storage.local.set(newData, () => {
-                    applyByPersistedState(tab);
+                    applyByPersistedState(tab, origin);
                 });
             });
         }
@@ -52,12 +50,20 @@ chrome.browserAction.onClicked.addListener(tab => {
 
 chrome.tabs.onActivated.addListener(e => {
     chrome.tabs.get(e.tabId, tab => {
-        applyByPersistedState(tab);
+        if (tab.url) {
+            const origin = getTabOrigin(tab);
+            applyByPersistedState(tab, origin);
+        } else {
+            setBadge(false, tab.id);
+        }
     });
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {    
     if (changeInfo.status === 'complete' && tab.url) {
-        applyByPersistedState(tab);
+        const origin = getTabOrigin(tab);
+        applyByPersistedState(tab, origin);
+    } else {
+        setBadge(false, tab.id);
     }
 });
