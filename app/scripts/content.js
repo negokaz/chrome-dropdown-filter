@@ -7,7 +7,7 @@ jquery(() => {
     // https://github.com/selectize/selectize.js/blob/master/docs/usage.md
     jquery('select[size="1"]:not(.selectized), select:not([size]):not(.selectized)').each((idx, elem) => {
         const $select = jquery(elem);
-        const height            = $select.height();
+        const height            = $select.height() + 2 /*border 分*/;
         const width             = $select.width();
         const padding           = $select.css('padding');
         const margin            = $select.css('margin');
