@@ -6,6 +6,13 @@ const selectizeStyle = require('selectize/dist/css/selectize.default.css');
 jquery(() => {
 
     function copyStyle($src, $dst) {
+        // 親が display:none の場合はサイズが取得できないため、一時的に表示してサイズを取得
+        $src.parents().each((idx, elem) => {
+            if (elem.style.display === 'none') {
+                elem.dataset.__force_display = true;
+                elem.style.display = '';
+            }
+        });
         $src.show();
         const id = $src.data('cloned-from');
         $src.attr('id', id);
@@ -37,6 +44,12 @@ jquery(() => {
 
         $src.removeAttr('id');
         $src.hide();
+        $src.parents().each((idx, elem) => {
+            if (elem.dataset.__force_display) {
+                elem.style.display = 'none';
+                delete elem.dataset.__force_display;
+            }
+        });
     }
 
     // https://github.com/selectize/selectize.js/blob/master/docs/usage.md
