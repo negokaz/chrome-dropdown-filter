@@ -7,12 +7,26 @@ jquery(() => {
     // https://github.com/selectize/selectize.js/blob/master/docs/usage.md
     jquery('select[size="1"]:not(.selectized), select:not([size]):not(.selectized)').each((idx, elem) => {
         const $select = jquery(elem);
+        // display: none になっている場合、高さと幅が取得できないため
+        // 一時的に強制的に表示させて高さと幅を取得する
+        $select.parents().each((idx, elem) => {
+            if(elem.style.display === 'none') {
+                elem.style.display = '';
+                elem.dataset.__forceDisplaying = true;
+            }
+        });
         const height            = $select.height() + 2 /*border 分*/;
         const width             = $select.width();
         const padding           = $select.css('padding');
         const margin            = $select.css('margin');
         const fontSize          = $select.css('font-size');
         const verticalAlign     = $select.css('vertical-align');
+        $select.parents().each((idx, elem) => {
+            if(elem.dataset.__forceDisplaying) {
+                elem.style.display = 'none';
+                delete elem.dataset.__forceDisplaying;
+            }
+        });
         $select.selectize({
             create: false,
             dropdownParent: 'body',

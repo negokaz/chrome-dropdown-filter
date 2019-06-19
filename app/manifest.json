@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Dropdown Filter",
     "description": "ドロップダウンメニューを素早く選択できるようになります",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "permissions": [
       "storage",
       "activeTab"
