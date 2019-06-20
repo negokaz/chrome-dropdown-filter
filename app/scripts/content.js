@@ -4,33 +4,67 @@ const selectize = require('selectize/dist/js/standalone/selectize.js');
 const selectizeStyle = require('selectize/dist/css/selectize.default.css');
 
 jquery(() => {
+
+    function copyStyle($src, $dst) {
+        // 親が display:none の場合はサイズが取得できないため、一時的に表示してサイズを取得
+        $src.parents().each((idx, elem) => {
+            if (elem.style.display === 'none') {
+                elem.dataset.__force_display = true;
+                elem.style.display = '';
+            }
+        });
+        $src.show();
+        const id = $src.data('cloned-from');
+        $src.attr('id', id);
+
+        const height            = $src.height() + 2;
+        const width             = $src.width();
+        const padding           = $src.css('padding');
+        const margin            = $src.css('margin');
+        const fontSize          = $src.css('font-size');
+        const verticalAlign     = $src.css('vertical-align');
+
+        const $control = $dst.next('.selectize-control');
+        $control.css('vertical-align', verticalAlign);
+        $control.css('margin', margin);
+        const $input = $control.find('.selectize-input');
+        $input.css('height', height);
+        $input.css('width', width);
+        $input.css('padding', padding);
+        $input.css('font-size', fontSize);
+        $input.css('vertical-align', verticalAlign);
+        const $textInput = $input.find('input');
+        $textInput.css('font-size', fontSize);
+        // avoid layout shaking: opacity: 0; position: absolute; left: -10000px;
+        $textInput.css('opacity', 0);
+        $textInput.css('position', 'absolute');
+        $textInput.css('left', '-10000px');
+        jquery('.selectize-dropdown:last')
+            .css('font-size', fontSize);
+
+        $src.removeAttr('id');
+        $src.hide();
+        $src.parents().each((idx, elem) => {
+            if (elem.dataset.__force_display) {
+                elem.style.display = 'none';
+                delete elem.dataset.__force_display;
+            }
+        });
+    }
+
     // https://github.com/selectize/selectize.js/blob/master/docs/usage.md
     jquery('select[size="1"]:not(.selectized), select:not([size]):not(.selectized)').each((idx, elem) => {
         const $select = jquery(elem);
-        // display: none になっている場合、高さと幅が取得できないため
-        // 一時的に強制的に表示させて高さと幅を取得する
-        $select.parents().each((idx, elem) => {
-            if(elem.style.display === 'none') {
-                elem.style.display = '';
-                elem.dataset.__forceDisplaying = true;
-            }
-        });
-        const height            = $select.height() + 2 /*border 分*/;
-        const width             = $select.width();
-        const padding           = $select.css('padding');
-        const margin            = $select.css('margin');
-        const fontSize          = $select.css('font-size');
-        const verticalAlign     = $select.css('vertical-align');
-        $select.parents().each((idx, elem) => {
-            if(elem.dataset.__forceDisplaying) {
-                elem.style.display = 'none';
-                delete elem.dataset.__forceDisplaying;
-            }
-        });
+        const $clonedSelect = jquery(elem.cloneNode(true));
+        $clonedSelect.prop('disabled', true);
+        $clonedSelect.data('cloned-from', $select.attr('id'));
+        $select.parent().append($clonedSelect);
+
         $select.selectize({
             create: false,
             dropdownParent: 'body',
             allowEmptyOption: true,
+            copyClassesToDropdown: true,
             onDropdownOpen: () => {
                 const select = $select[0];
                 const selectize = select.selectize;
@@ -59,22 +93,9 @@ jquery(() => {
                 }
             }
         });
-        const $control = $select.next('.selectize-control');
-        $control.css('vertical-align', verticalAlign);
-        $control.css('margin', margin);
-        const $input = $control.find('.selectize-input');
-        $input.css('height', height);
-        $input.css('width', width);
-        $input.css('padding', padding);
-        $input.css('font-size', fontSize);
-        $input.css('vertical-align', verticalAlign);
-        const $textInput = $input.find('input');
-        $textInput.css('font-size', fontSize);
-        // avoid layout shaking: opacity: 0; position: absolute; left: -10000px;
-        $textInput.css('opacity', 0);
-        $textInput.css('position', 'absolute');
-        $textInput.css('left', '-10000px');
-        jquery('.selectize-dropdown:last')
-            .css('font-size', fontSize);
+        copyStyle($clonedSelect, $select);
+        jquery(window).on('resize', () => {
+            copyStyle($clonedSelect, $select);
+        });
     });
 });
