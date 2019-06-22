@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Dropdown Filter",
-    "description": "ドロップダウンメニューを素早く選択できるようになります",
-    "version": "0.3.2",
+    "description": "ドロップダウンリストを素早く選択できるようになります",
+    "version": "0.3.3",
     "permissions": [
       "storage",
       "activeTab"
