@@ -1,7 +1,8 @@
 
 function executeContentScript(tabId) {
     chrome.tabs.executeScript(tabId, {
-        file: "scripts/content.js"
+        file: "scripts/content.js",
+        allFrames: true
     });
 }
 
