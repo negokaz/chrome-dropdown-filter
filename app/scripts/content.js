@@ -52,50 +52,57 @@ jquery(() => {
         });
     }
 
-    // https://github.com/selectize/selectize.js/blob/master/docs/usage.md
-    jquery('select[size="1"]:not(.selectized), select:not([size]):not(.selectized)').each((idx, elem) => {
-        const $select = jquery(elem);
-        const $clonedSelect = jquery(elem.cloneNode(true));
-        $clonedSelect.prop('disabled', true);
-        $clonedSelect.data('cloned-from', $select.attr('id'));
-        $select.parent().append($clonedSelect);
+    function applyDropdownFilter() {
+        jquery('select[size="1"]:not(.applied-dropdown-filter), select:not([size]):not(.applied-dropdown-filter)').each((index, dropdown) => {
+            const $dropdown = jquery(dropdown);
+            $dropdown.addClass('applied-dropdown-filter');
+            $dropdown.focusin(event => {
+                event.preventDefault();
 
-        $select.selectize({
-            create: false,
-            dropdownParent: 'body',
-            allowEmptyOption: true,
-            copyClassesToDropdown: true,
-            onDropdownOpen: () => {
-                const select = $select[0];
-                const selectize = select.selectize;
-                if (select.dataset.selectedValue) {
-                    delete select.dataset.selectedValue;
-                }
-                select.dataset.initialValue = selectize.getValue();
-                selectize.clear(/*silent*/true);
-            },
-            onBlur: () => {
-                const select = $select[0];
-                const selectize = select.selectize;
-                select.dataset.selectedValue = selectize.getValue();
-                selectize.setValue(select.dataset.initialValue, /*silent*/true)
-                delete select.dataset.initialValue;
-            },
-            onChange: () => {
-                const select = $select[0];
-                const selectize = select.selectize;
-                if (select.dataset.selectedValue !== '') {
-                    selectize.setValue(select.dataset.selectedValue, /*silent*/true)
-                    delete select.dataset.selectedValue;
-                } else if (select.dataset.selectedValue === '') {
-                    selectize.clear(/*silent*/true);
-                    delete select.dataset.selectedValue;
-                }
-            }
+                const $clonedDropdown = jquery(dropdown.cloneNode(true));
+                $clonedDropdown.hide();
+                $dropdown.after($clonedDropdown);
+
+                $dropdown.selectize({
+                    create: false,
+                    dropdownParent: 'body',
+                    allowEmptyOption: true,
+                    onDropdownOpen: () => {
+                        if (dropdown.dataset.selectedValue) {
+                            delete dropdown.dataset.selectedValue;
+                        }
+                        dropdown.dataset.initialValue = $dropdown.val();
+                        // console.log(dropdown.dataset);
+                        dropdown.selectize.clear(/*silent*/true);
+                    },
+                    onBlur: () => {
+                        setTimeout(() => {
+                            const value = $dropdown.val();
+                            dropdown.selectize.destroy();
+                            $dropdown.val(value);
+                            $clonedDropdown.remove();
+
+                            if (dropdown.dataset.selectedValue) {
+                                $dropdown.val(dropdown.dataset.selectedValue);
+                            } else {
+                                $dropdown.val(dropdown.dataset.initialValue);
+                            }
+                        }, 0);
+                    },
+                    onChange: () => {
+                        dropdown.dataset.selectedValue = $dropdown.val();
+                        const changeEvent = document.createEvent("HTMLEvents");
+                        changeEvent.initEvent("change", false, true);
+                        dropdown.dispatchEvent(changeEvent);
+                    }
+                });
+                copyStyle($clonedDropdown, $dropdown);
+                dropdown.selectize.focus();
+            });
         });
-        copyStyle($clonedSelect, $select);
-        jquery(window).on('resize', () => {
-            copyStyle($clonedSelect, $select);
-        });
-    });
+    } 
+
+    const observer = new MutationObserver(applyDropdownFilter);
+    observer.observe(document.body, { childList: true, subtree: true });
+    applyDropdownFilter();
 });
