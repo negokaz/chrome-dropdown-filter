@@ -84,6 +84,9 @@ jquery(() => {
 
                             if (dropdown.dataset.selectedValue) {
                                 $dropdown.val(dropdown.dataset.selectedValue);
+                                const changeEvent = document.createEvent("HTMLEvents");
+                                changeEvent.initEvent("change", false, true);
+                                dropdown.dispatchEvent(changeEvent);
                             } else {
                                 $dropdown.val(dropdown.dataset.initialValue);
                             }
@@ -91,9 +94,6 @@ jquery(() => {
                     },
                     onChange: () => {
                         dropdown.dataset.selectedValue = $dropdown.val();
-                        const changeEvent = document.createEvent("HTMLEvents");
-                        changeEvent.initEvent("change", false, true);
-                        dropdown.dispatchEvent(changeEvent);
                     }
                 });
                 copyStyle($clonedDropdown, $dropdown);
