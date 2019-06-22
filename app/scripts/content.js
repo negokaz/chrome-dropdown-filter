@@ -57,6 +57,10 @@ jquery(() => {
             const $dropdown = jquery(dropdown);
             $dropdown.addClass('applied-dropdown-filter');
             $dropdown.focusin(event => {
+                const size = $dropdown.attr('size');
+                if (size && size > 1) {
+                    return;
+                }
                 event.preventDefault();
 
                 const $clonedDropdown = jquery(dropdown.cloneNode(true));
