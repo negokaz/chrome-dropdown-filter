@@ -17,7 +17,7 @@ jquery(() => {
         const id = $src.data('cloned-from');
         $src.attr('id', id);
 
-        const height            = $src.height() + 2;
+        const height            = $src.height();
         const width             = $src.width();
         const padding           = $src.css('padding');
         const margin            = $src.css('margin');
