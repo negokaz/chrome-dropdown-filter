@@ -86,7 +86,7 @@ jquery(() => {
                             $dropdown.val(value);
                             $clonedDropdown.remove();
 
-                            if (dropdown.dataset.selectedValue) {
+                            if (typeof dropdown.dataset.selectedValue !== 'undefined') {
                                 $dropdown.val(dropdown.dataset.selectedValue);
                                 const changeEvent = document.createEvent("HTMLEvents");
                                 changeEvent.initEvent("change", false, true);
