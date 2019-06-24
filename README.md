@@ -17,3 +17,9 @@ Enjoy filtering dropdown!
 ## Install
 
 Download from [Chrome Web Store](https://chrome.google.com/webstore/detail/dropdown-filter/lafpapdojniijcaeadlpnhcfkkpcodmb)
+
+## License
+
+Copyright (c) 2019 Kazuki Negoro
+
+Dropdown Filter is released under the [MIT License](./LICENSE)
