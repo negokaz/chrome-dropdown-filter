@@ -9,7 +9,7 @@
     "webextension-toolbox": "^3.0.0"
   },
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "selectize": "^0.12.6"
   }
 }
