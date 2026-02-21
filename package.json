@@ -2,16 +2,21 @@
   "name": "chrome-dropdown-filter",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "packageManager": "bun@1.3.6",
   "scripts": {
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider webextension-toolbox dev chrome",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webextension-toolbox build chrome"
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production"
   },
   "devDependencies": {
-    "css-loader": "^2.1.1",
-    "style-loader": "^0.23.1",
-    "webextension-toolbox": "^3.0.0"
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.4",
+    "style-loader": "^4.0.0",
+    "web-ext": "^9.3.0",
+    "web-ext-plugin": "^1.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^6.0.0"
   },
   "dependencies": {
     "jquery": "^3.4.1",
