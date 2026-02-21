@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "packageManager": "bun@1.3.6",
+  "scripts": {
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider webextension-toolbox dev chrome",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webextension-toolbox build chrome"
+  },
   "devDependencies": {
     "css-loader": "^2.1.1",
     "style-loader": "^0.23.1",
@@ -11,5 +16,8 @@
   "dependencies": {
     "jquery": "^3.4.1",
     "selectize": "^0.12.6"
-  }
+  },
+  "trustedDependencies": [
+    "core-js"
+  ]
 }
