@@ -5,7 +5,7 @@ export default defineConfig({
   manifest: {
     name: 'Dropdown Filter',
     description: 'ドロップダウンリストを素早く選択できるようになります',
-    version: '0.3.6',
+    version: '0.4.0',
     permissions: ['storage', 'activeTab', 'scripting'],
     optional_host_permissions: ['http://*/', 'https://*/'],
     action: {},
