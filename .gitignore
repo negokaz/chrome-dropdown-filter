@@ -1,4 +1,6 @@
 /node_modules
 /dist
+/.output
+/.wxt
 /packages
 .DS_Store
