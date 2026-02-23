@@ -1,0 +1,20 @@
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" style="background: transparent; background-color: transparent;" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="120px" height="120px" viewBox="-0.5 -0.5 120 120" content="&lt;mxfile&gt;&lt;diagram id=&quot;rFLWxycGm0dLmnCH_azP&quot; name=&quot;Page-1&quot;&gt;tZZNc4IwEIZ/DVeHED70qrXtpScPPWcgQqaBZWIs2F/fRRIlgqPToTjDZN/NhuTJG9Cjm7J9U6wuPiDj0gv8rPXoixcESeTjvRNOvRBFSS/kSmS9RK7CTvxwI5q6/CgyfnA6agCpRe2KKVQVT7WjMaWgcbvtQbpPrVnOR8IuZXKsfopMF726tMvq9Hcu8sI+mfgmUzLb2QiHgmXQDCS69ehGAei+VbYbLjt2lktf93one5mY4pV+psBw/2byaNZm5qVPdrFYgFwxWDeF0HxXs7TLNLizqBW6lBgRbLJD3cPei5bj+Ou9kHIDEhRqGd+zo8Ts+qAVfHGrV1B1Q5tpcKV5e3cp5AIIjcWh5FqdsIspuDA1piIrEzfXLSK2TzHcHisyY4v8MvaVHDYMvGmQ4WOQCo5V1oE503oAs6dk3ZWMuHkBDV+630zwQhdeQMfw4gl24Qzo6GN0WglW5fIJEyrQTAuoMMT9dz04ZDbpwjH0OdDGySK6gRtZZYA3iMZ46Qx4g/884i4xQm+Iz3i6bw1K/AmGywmLLmdgGM98ugcuDaN7bryxrn++uk1Qqfkk0tU8cHHsxTJx+Sbxgoz4Un8RxmPEf3iBYnj9yp1zg78KdPsL&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs/>
+    <g>
+        <g>
+            <ellipse cx="60" cy="60" rx="60" ry="60" fill="#ffffff" stroke="none" pointer-events="all" style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+        </g>
+        <g>
+            <rect x="20" y="40" width="60" height="40" rx="6" ry="6" fill="#ffffff" stroke="#4d4d4d" stroke-width="7" pointer-events="all" style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(77, 77, 77), rgb(171, 171, 171));"/>
+        </g>
+        <g>
+            <path d="M 47.5 45.5 L 72.5 60.5 L 47.5 75.5 Z" fill="#4d4d4d" stroke="none" transform="rotate(90,60,60.5)" pointer-events="all" style="fill: light-dark(rgb(77, 77, 77), rgb(171, 171, 171));"/>
+        </g>
+        <g>
+            <ellipse cx="60" cy="60.5" rx="40" ry="40" fill="none" stroke="#000000" stroke-width="13" pointer-events="all" style="stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));"/>
+        </g>
+        <g>
+            <rect x="80.87" y="86.1" width="30.46" height="20" rx="7.8" ry="7.8" fill="#000000" stroke="none" transform="rotate(45,96.1,96.1)" pointer-events="all" style="fill: light-dark(rgb(0, 0, 0), rgb(237, 237, 237));"/>
+        </g>
+    </g>
+</svg>

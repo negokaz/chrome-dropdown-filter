@@ -18,6 +18,7 @@
   ],
   "type": "module",
   "devDependencies": {
+    "@wxt-dev/auto-icons": "^1.1.1",
     "wxt": "^0.20.17"
   }
 }
